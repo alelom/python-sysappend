@@ -24,10 +24,10 @@ dependencies = [
 license = {file = "LICENSE"}
 
 [project.urls]
-Homepage = "https://github.com/allenai/python-package-template"
-Repository = "https://github.com/allenai/python-package-template"
-Changelog = "https://github.com/allenai/python-package-template/blob/main/CHANGELOG.md"
-# Documentation = "https://my-package.readthedocs.io/"
+Homepage = "https://github.com/alelom/python-importall"
+Repository = "https://github.com/alelom/python-importall"
+Changelog = "https://github.com/alelom/python-importall/blob/main/CHANGELOG.md"
+# Documentation = "https://github.com/alelom/python-importall"
 
 [project.optional-dependencies]
 dev = [
