@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [v1.0.3](https://github.com/alelom/python-recursiveimport/releases/tag/v1.0.3) - 2025-01-09
+
 ## [v1.0.2](https://github.com/alelom/python-recursiveimport/releases/tag/v1.0.2) - 2025-01-09
 
 ## [v1.0.1](https://github.com/alelom/python-recursiveimport/releases/tag/v1.0.1) - 2025-01-09
