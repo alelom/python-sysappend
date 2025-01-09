@@ -1,23 +1,23 @@
 Installation
 ============
 
-**my-package** supports Python >= 3.8.
+**recursiveimport** supports Python >= 3.8.
 
 ## Installing with `pip`
 
-**my-package** is available [on PyPI](https://pypi.org/project/my-package/). Just run
+**recursiveimport** is available [on PyPI](https://pypi.org/project/recursiveimport/). Just run
 
 ```bash
-pip install my-package
+pip install recursiveimport
 ```
 
 ## Installing from source
 
-To install **my-package** from source, first clone [the repository](https://github.com/allenai/python-package-template):
+To install **recursiveimport** from source, first clone [the repository](https://github.com/alelom/python-recursiveimport):
 
 ```bash
-git clone https://github.com/allenai/python-package-template.git
-cd python-package-template
+git clone https://github.com/alelom/python-recursiveimport.git
+cd python-recursiveimport
 ```
 
 Then run
