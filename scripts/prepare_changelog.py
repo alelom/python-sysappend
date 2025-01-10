@@ -1,7 +1,7 @@
 from datetime import datetime
 from pathlib import Path
 
-from recursiveimport.version import VERSION
+from sysappend.version import VERSION
 
 
 def main():
@@ -27,7 +27,7 @@ def main():
     lines.insert(insert_index, "\n")
     lines.insert(
         insert_index + 1,
-        f"## [v{VERSION}](https://github.com/alelom/python-recursiveimport/releases/tag/v{VERSION}) - "
+        f"## [v{VERSION}](https://github.com/alelom/python-sysappend/releases/tag/v{VERSION}) - "
         f"{datetime.now().strftime('%Y-%m-%d')}\n",
     )
 

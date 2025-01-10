@@ -85,7 +85,7 @@ jobs:
         if: always()
         run: |
           . .venv/bin/activate
-          pip uninstall -y recursiveimport
+          pip uninstall -y sysappend
 
   release:
     name: Release

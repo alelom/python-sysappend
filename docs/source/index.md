@@ -1,4 +1,4 @@
-# **recursiveimport**
+# **sysappend**
 
 ```{toctree}
 :maxdepth: 2
@@ -15,8 +15,8 @@ overview
 
 CHANGELOG
 CONTRIBUTING
-License <https://raw.githubusercontent.com/allenai/python-recursiveimport/main/LICENSE>
-GitHub Repository <https://github.com/alelom/python-recursiveimport>
+License <https://raw.githubusercontent.com/allenai/python-sysappend/main/LICENSE>
+GitHub Repository <https://github.com/alelom/python-sysappend>
 ```
 
 ## Indices and tables

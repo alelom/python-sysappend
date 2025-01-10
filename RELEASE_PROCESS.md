@@ -1,24 +1,12 @@
-# GitHub Release Process
+# Release Process
 
-## Steps
+1. Update the version in `sysappend/version.py`.
 
-1. Update the version in `recursiveimport/version.py`.
+2. Run `python3 -m build`
 
-3. Run the release script:
+3. Delete any previous releases from the `dist` folder
 
-    ```bash
-    ./scripts/release.sh
-    ```
+4. Upload to PyPiTest: `python3 -m twine upload --repository testpypi dist/*`
+   
+5. Upload to PyPi: `python3 -m twine upload dist/*` 
 
-    This will commit the changes to the CHANGELOG and `version.py` files and then create a new tag in git
-    which will trigger a workflow on GitHub Actions that handles the rest.
-
-## Fixing a failed release
-
-If for some reason the GitHub Actions release workflow failed with an error that needs to be fixed, you'll have to delete both the tag and corresponding release from GitHub. After you've pushed a fix, delete the tag from your local clone with
-
-```bash
-git tag -l | xargs git tag -d && git fetch -t
-```
-
-Then repeat the steps above.

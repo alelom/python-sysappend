@@ -1,23 +1,23 @@
 Installation
 ============
 
-**recursiveimport** supports Python >= 3.8.
+**sysappend** supports Python >= 3.8.
 
 ## Installing with `pip`
 
-**recursiveimport** is available [on PyPI](https://pypi.org/project/recursiveimport/). Just run
+**sysappend** is available [on PyPI](https://pypi.org/project/sysappend/). Just run
 
 ```bash
-pip install recursiveimport
+pip install sysappend
 ```
 
 ## Installing from source
 
-To install **recursiveimport** from source, first clone [the repository](https://github.com/alelom/python-recursiveimport):
+To install **sysappend** from source, first clone [the repository](https://github.com/alelom/python-sysappend):
 
 ```bash
-git clone https://github.com/alelom/python-recursiveimport.git
-cd python-recursiveimport
+git clone https://github.com/alelom/python-sysappend.git
+cd python-sysappend
 ```
 
 Then run

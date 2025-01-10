@@ -1,7 +1,7 @@
 .PHONY : docs
 docs :
 	rm -rf docs/build/
-	sphinx-autobuild -b html --watch recursiveimport/ docs/source/ docs/build/
+	sphinx-autobuild -b html --watch sysappend/ docs/source/ docs/build/
 
 .PHONY : run-checks
 run-checks :
@@ -9,7 +9,7 @@ run-checks :
 	black --check .
 	ruff check .
 	mypy .
-	CUDA_VISIBLE_DEVICES='' pytest -v --color=yes --doctest-modules tests/ recursiveimport/
+	CUDA_VISIBLE_DEVICES='' pytest -v --color=yes --doctest-modules tests/ sysappend/
 
 .PHONY : build
 build :
