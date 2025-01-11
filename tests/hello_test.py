@@ -1,7 +1,7 @@
-if True: import sys; sys.path.append('/home/alelom/git/python-recursiveimport/')
-import copy
+if True: import sys; sys.path.append('.') # needed to run this file
 
-def test_hello():
+
+def test_all():
     all_paths = sys.path.copy()
     
     from sysappend import all
