@@ -10,7 +10,8 @@ ANALYSED_ROOT_DIRS : Set = set()
 def all(root_dir_name: Optional[str] = None, start_search_from_child_dir : Optional[Union[str, Path]] = None, 
         exceptions: Optional[List[str]] = ["dist", "docs", "tests"],
         skip_symlinks: bool = True,
-        skip_dirs_starting_with: List[str] = [".", "__"]):
+        skip_dirs_starting_with: List[str] = [".", "__"],
+        skip_dirs_invalid_module_name: bool = True):
     """Crawls upwards from `start_search_from_child_dir` until the `root_dir_name` folder, then appends to `sys.path` all subdirectories, recursively.
     If `start_search_from_child_dir` is not provided, it will use the current executing script's folder as the starting point.
     By default, this skips:  
@@ -32,6 +33,8 @@ def all(root_dir_name: Optional[str] = None, start_search_from_child_dir : Optio
         skip_symlinks (bool, optional): If True, skips symlinks. Defaults to True.
         
         skip_dirs_starting_with (List[str], optional): A list of strings that, if found at the start of the directory name, will be skipped. Defaults to [".", "__"].
+        
+        skip_dirs_invalid_module_name (bool, optional): If True, skips directories that are named with a convention that is not valid for a Python module name. See https://docs.python.org/dev/reference/lexical_analysis.html#identifiers. Defaults to True.
     """
     if isinstance(start_search_from_child_dir, str):
         start_search_from_child_dir = Path(start_search_from_child_dir)
@@ -80,9 +83,14 @@ def all(root_dir_name: Optional[str] = None, start_search_from_child_dir : Optio
     all_paths_to_append = set()
 
     # Add all subdirectories of the "src" directory to sys.path
-    all_subdirs = [x for x in root_dir_to_import.rglob('*') if x.is_dir() and not any(part.startswith(prefix) for prefix in skip_dirs_starting_with for part in x.parts)]
-    all_subdirs = [d for d in all_subdirs if not any(part.startswith('.') or part.startswith('__') for part in d.parts)]
+    all_subdirs = [x for x in root_dir_to_import.rglob('*') if x.is_dir()]
     for subdir in all_subdirs:
+        # Make the subdir path relative to the root_dir_to_import in order to skip only significant directories
+        subdir = subdir.relative_to(root_dir_to_import)
+        
+        if skip_dirs_starting_with and any(part.startswith(prefix) for prefix in skip_dirs_starting_with for part in subdir.parts):
+            continue
+        
         if ".egg-info" in str(subdir):
             continue
         
@@ -92,7 +100,11 @@ def all(root_dir_name: Optional[str] = None, start_search_from_child_dir : Optio
         if skip_symlinks and subdir.is_symlink():
             continue
         
-        # get the path in the format of the current os
+        if skip_dirs_invalid_module_name and any(not part.isidentifier() for part in subdir.parts):
+            continue
+        
+        # Restore the full path and normalize it before adding it to the list.
+        subdir = Path.joinpath(root_dir_to_import, subdir)
         path = os.path.normpath(subdir)
         all_paths_to_append.add(path)
     
