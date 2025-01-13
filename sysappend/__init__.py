@@ -2,9 +2,23 @@ from .version import VERSION, VERSION_SHORT
 import sys, os
 from pathlib import Path
 from typing import List, Optional, Set, Union
-
+import inspect
 
 ANALYSED_ROOT_DIRS : Set = set()
+
+
+def __get_importing_filepath() -> str:
+    # Get the current frame
+    current_frame = inspect.currentframe()
+    # Traverse the call stack
+    for frame_info in inspect.getouterframes(current_frame):
+        # Get the file path of the frame
+        filepath = frame_info.filename
+        # Check if the file is not part of the package (e.g., not __init__.py)
+        if not filepath.endswith('__init__.py'):
+            return os.path.abspath(filepath)
+    
+    return sys.argv[0]
 
 
 def all(root_dir_name: Optional[str] = None, start_search_from_child_dir : Optional[Union[str, Path]] = None, 
@@ -26,7 +40,7 @@ def all(root_dir_name: Optional[str] = None, start_search_from_child_dir : Optio
         The repository root dir is identified by the presence of a `.git` folder in it.  
         
         start_search_from_child_dir (Optional[str | Path], optional): The child directory from where the upward crawl is initiated.  
-        If not provided, it will use the current executing script's folder as the starting point.
+        If not provided, it will use the importing script's folder as the starting point.
         
         exceptions (Optional[List[str]], optional): A list of strings that, if found in the path, will be skipped. Defaults to ["dist", "docs", "tests"].
         
@@ -40,7 +54,7 @@ def all(root_dir_name: Optional[str] = None, start_search_from_child_dir : Optio
         start_search_from_child_dir = Path(start_search_from_child_dir)
         
     if not start_search_from_child_dir:
-        start_search_from_child_dir = Path(sys.argv[0]).resolve()
+        start_search_from_child_dir = Path(__get_importing_filepath()).resolve()
         start_search_from_child_dir = Path(start_search_from_child_dir).resolve().parent
         
     root_dir_to_import = None
@@ -91,9 +105,6 @@ def all(root_dir_name: Optional[str] = None, start_search_from_child_dir : Optio
         if skip_dirs_starting_with and any(part.startswith(prefix) for prefix in skip_dirs_starting_with for part in subdir.parts):
             continue
         
-        if ".egg-info" in str(subdir):
-            continue
-        
         if exceptions and any(exception in subdir.parts for exception in exceptions):
             continue
         
@@ -101,6 +112,9 @@ def all(root_dir_name: Optional[str] = None, start_search_from_child_dir : Optio
             continue
         
         if skip_dirs_invalid_module_name and any(not part.isidentifier() for part in subdir.parts):
+            continue
+        
+        if ".egg-info" in str(subdir):
             continue
         
         # Restore the full path and normalize it before adding it to the list.
