@@ -50,6 +50,9 @@ def all(root_dir_name: Optional[str] = None, start_search_from_child_dir : Optio
         
         skip_dirs_invalid_module_name (bool, optional): If True, skips directories that are named with a convention that is not valid for a Python module name. See https://docs.python.org/dev/reference/lexical_analysis.html#identifiers. Defaults to True.
     """
+    if root_dir_name and os.path.isfile(root_dir_name):
+        root_dir_name = str(Path(root_dir_name).parent)
+            
     if isinstance(start_search_from_child_dir, str):
         start_search_from_child_dir = Path(start_search_from_child_dir)
         
@@ -84,7 +87,8 @@ def all(root_dir_name: Optional[str] = None, start_search_from_child_dir : Optio
         start_dir = start_dir.parent
 
     if not root_dir_to_import:
-        raise Exception("Root directory not found. Please provide the root directory name.")
+        # Fallback to start_search_from_child_dir
+        root_dir_to_import = start_search_from_child_dir
     
     root_dir_to_import_str = str(os.path.normpath(root_dir_to_import))
     

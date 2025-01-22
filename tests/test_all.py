@@ -9,6 +9,14 @@ def test_all():
     
     assert sys.path != all_paths
     
+def test_all_script_path():
+    all_paths = sys.path.copy()
+    
+    from sysappend import all
+    all(__file__)
+    
+    assert sys.path != all_paths
+    
 
 if __name__ == '__main__':
     import inspect
