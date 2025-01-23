@@ -27,8 +27,12 @@ def all(root_dir_name: Optional[str] = None, start_search_from_child_dir : Optio
         skip_dirs_starting_with: List[str] = [".", "__"],
         skip_dirs_invalid_module_name: bool = True):
     """Crawls upwards from `start_search_from_child_dir` until the `root_dir_name` folder, then appends to `sys.path` all subdirectories, recursively.
+    
+    The `root_dir_name` is identified by the presence of a `.git` folder in it. If this is not found, it will be set to the `start_search_from_child_dir`.  
+    
     If `start_search_from_child_dir` is not provided, it will use the current executing script's folder as the starting point.
-    By default, this skips:  
+    
+    By default, the function doesn't consider:  
     - symlinks directories (`skip_symlinks` defaults to True); 
     - directories named like strings in the `exceptions` list (defaults: dist, docs, tests);
     - directories starting with the chars in the `skip_dirs_starting_with` (defaults: dot, double underscore).
