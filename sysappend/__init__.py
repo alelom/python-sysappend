@@ -45,6 +45,7 @@ def all(root_dir_name: Optional[str] = None, start_search_from_child_dir : Optio
         
         start_search_from_child_dir (Optional[str | Path], optional): The child directory from where the upward crawl is initiated.  
         If not provided, it will use the importing script's folder as the starting point.
+        All parents of the starting point will be appended to sys.path.
         
         exceptions (Optional[List[str]], optional): A list of strings that, if found in the path, will be skipped. Defaults to ["dist", "docs", "tests"].
         
@@ -71,6 +72,7 @@ def all(root_dir_name: Optional[str] = None, start_search_from_child_dir : Optio
     # crawling upwards from the start_dir until the root_dir_name is found, 
     # or until a .git folder is found.
     for parent in start_dir.parents:
+        sys.path.append(str(parent))
         if not root_dir_name:
             gitdir = Path.joinpath(parent, ".git")
             if (gitdir).exists():
