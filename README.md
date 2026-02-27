@@ -10,7 +10,7 @@ In my opinion, this solves the super-nasty import and relative package managemen
 
 ### How to use it
 
-1. `pip install sysappend`
+1. `uv add sysappend` or `pip install sysappend`
 2. Add an `if True: import sysappend; sysappend.all()` statement at the top of every python file in your repo. (It doesn't need to be every file, but it's just easier for convenience, and the function caches results avoiding redundant computation, so it doesn't slow the code down).
 
 ### Recommended folder referencing when importing
